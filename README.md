@@ -48,9 +48,6 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-> 若下載速度過慢，可改用清華鏡像源：  
-> `pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
-
 ---
 
 ## 設定環境變數
@@ -72,8 +69,6 @@ PORT=9099
 # 可指定外部 Prompt 檔案路徑
 OCR_PROMPT_FILE=prompt/ocr_prompt.txt
 ```
-
-> `.env` 請勿上傳至 GitHub（`.gitignore` 已自動排除）
 
 ---
 
@@ -156,7 +151,7 @@ curl -X POST "http://localhost:9099/process_image_llm_twcc"   -F "file=@sample.j
       "憑證日期": "2024-09-18 14:35:20",
       "隨機碼": "1234",
       "賣方統編": "12345678",
-      "賣方營業人名稱": 諾歐科技股份有限公司",
+      "賣方營業人名稱": "諾歐科技股份有限公司",
       "金額": "550"
     },
     "Category": "test",
@@ -199,17 +194,6 @@ python-multipart>=0.0.9
 ## 授權條款
 本專案採用 MIT License。  
 詳見 [LICENSE](./LICENSE)。
-
----
-
-## 自我檢核 Checklist
-- [x] 已設定 `.env` 並移除敏感金鑰  
-- [x] 已配置 `prompt/ocr_prompt.txt`  
-- [x] 已執行 `pip install -r requirements.txt`  
-- [x] 已執行本地測試並成功回傳結果  
-- [x] 已通過 gitleaks / security.yaml 掃描  
-- [x] License: MIT  
-- [x] `Category` 改為選填欄位，未提供時自動使用 `"default"`
 
 ---
 
