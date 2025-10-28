@@ -1,0 +1,18 @@
+project_name: api-ocr-2025
+description: "A lightweight Python OCR API module for text extraction from images or scanned documents."
+license: MIT
+authors:
+  - name: Andy Chang
+    email: andy.chang@neov.ai
+maintainers:
+  - name: Andy Chang
+repo_url: "https://github.com/adi-gov-tw/api-ocr-2025"
+hf_model_name: "adi-gov-tw/api-ocr-2025-model"
+hf_dataset_name: "adi-gov-tw/api-ocr-2025-dataset"
+tags:
+  - OCR
+  - API
+  - HuggingFace
+  - Python
+  - Text Recognition
+  - Tesseract
