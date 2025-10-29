@@ -43,3 +43,30 @@ jobs:
           name: gitleaks-results.sarif
           path: results.sarif
 
+  dependency-review:
+    name: Dependency Review (Vulnerability Scan)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Dependency Review(PR)
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high   # fail build if high severity vuln detected
+          comment-summary-in-pr: true
+
+      - name: Dependency Review(Push)
+        if: github.event_name == 'push'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high   # fail build if high severity vuln detected
+          comment-summary-in-pr: true
+          base-ref: ${{ github.event.before }}
+          head-ref: ${{ github.sha }}
