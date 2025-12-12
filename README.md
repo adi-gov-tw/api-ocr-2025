@@ -50,9 +50,6 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-> 若下載速度過慢，可改用清華鏡像源：  
-> `pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
-
 ---
 
 ## 設定環境變數
