@@ -1,9 +1,9 @@
 # api-ocr-2025
 
 本專案為 OCR (Optical Character Recognition) API 模組，
-支援 **TWCC LLM** 與 **Hugging Face 本地模型 (Llama 3.2 Vision)** 兩種推論方式，
+支援 **Hugging Face 本地模型 (Llama 3.2 Vision)** 推論方式，
 進行收據 / 發票影像文字辨識與結構化資訊萃取。
-可獨立運作，或整合至醫療報銷系統、表單掃描平台等應用。
+可獨立運作，或整合至表單掃描平台等應用。
 
 ---
 
@@ -22,7 +22,6 @@ api-ocr-2025/
 
 ## 主要功能
 - 提供 REST API 介面
-  - `/process_image_llm_twcc` - 使用 TWCC 雲端 LLM
   - `/process_image_llm_hf` - 使用本地 Hugging Face Llama 3.2 Vision 模型
 - 可上傳收據 / 發票圖片（JPG、PNG）
 - 由 LLM 模型分析影像文字內容
@@ -57,13 +56,6 @@ pip install -r requirements.txt
 建立 `.env` 檔案於專案根目錄中：
 
 ```
-# TWCC 雲端大型語言模型 (LLM) API
-TWCC_LLM_API_URL=https://api-ams.twcc.ai/api/models
-TWCC_API_KEY=你的_TWCC_API_KEY
-
-# OpenAI API 金鑰（非必要）
-OPENAI_API_KEY=你的_OPENAI_API_KEY
-
 # FastAPI 伺服器設定
 HOST=0.0.0.0
 PORT=9099
@@ -71,7 +63,7 @@ PORT=9099
 # 可指定外部 Prompt 檔案路徑
 OCR_PROMPT_FILE=prompt/ocr_prompt.txt
 
-# Hugging Face 本地模型設定（選用）
+# Hugging Face 本地模型設定
 HF_MODEL_ID=meta-llama/Llama-3.2-11B-Vision-Instruct
 HF_ENABLED=false
 ```
@@ -154,7 +146,7 @@ huggingface-cli login
 
 ## 啟動服務
 ```bash
-python ocr.py
+python OCRAPI.py
 ```
 
 或使用 Uvicorn：
@@ -171,12 +163,8 @@ http://localhost:9099
 
 ## API 使用說明
 
-### Endpoint 1：TWCC 雲端模型
-```
-POST /process_image_llm_twcc
-```
 
-### Endpoint 2：Hugging Face 本地模型
+### Endpoint ：Hugging Face 本地模型
 ```
 POST /process_image_llm_hf
 ```
@@ -190,38 +178,9 @@ POST /process_image_llm_hf
 
 ### Curl 範例
 ```bash
-# 範例 1：使用 TWCC 雲端模型
-curl -X POST "http://localhost:9099/process_image_llm_twcc" \
-  -F "file=@sample.jpg"
-
-# 範例 2：使用 Hugging Face 本地模型
+# 範例 ：使用 Hugging Face 本地模型
 curl -X POST "http://localhost:9099/process_image_llm_hf" \
   -F "file=@sample.jpg"
-
-# 範例 3：帶有分類欄位
-curl -X POST "http://localhost:9099/process_image_llm_twcc" \
-  -F "file=@sample.jpg" \
-  -F "Category=test"
-```
-
-### 成功回傳範例（TWCC）
-```json
-[
-  {
-    "Result": "成功",
-    "Item": {
-      "憑證格式": "電子發票",
-      "憑證號碼": "AB-12345678",
-      "憑證日期": "2024-09-18 14:35:20",
-      "隨機碼": "1234",
-      "賣方統編": "12345678",
-      "賣方營業人名稱": "諾歐科技股份有限公司",
-      "金額": "550"
-    },
-    "Category": "test",
-    "OCR": "TWCC"
-  }
-]
 ```
 
 ### 成功回傳範例（HuggingFace）
@@ -251,7 +210,7 @@ curl -X POST "http://localhost:9099/process_image_llm_twcc" \
     "Result": "失敗",
     "Item": [],
     "Category": "default",
-    "OCR": "TWCC"
+    "OCR": "HuggingFace"
   }
 ]
 ```
@@ -298,9 +257,8 @@ huggingface_hub>=0.25.0
 - [x] 已執行本地測試並成功回傳結果
 - [x] 已通過 gitleaks / security.yaml 掃描
 - [x] License: MIT
-- [x] `Category` 改為選填欄位，未提供時自動使用 `"default"`
 
-### Hugging Face 本地模型（選用）
+### Hugging Face 本地模型
 - [ ] 已申請 Meta Llama 授權
 - [ ] 已申請 Hugging Face 模型存取權限
 - [ ] 已執行 `huggingface-cli login`

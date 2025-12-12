@@ -1,3 +1,4 @@
+# 核心套件
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
 google-cloud-vision>=3.7.4
