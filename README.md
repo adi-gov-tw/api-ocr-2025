@@ -35,7 +35,7 @@ api-ocr-2025/
 
 ### 1. 下載專案
 ```bash
-git clone https://github.com/xxx/api-ocr-2025.git
+git clone https://github.com/adi-gov-tw/api-ocr-2025.git
 cd api-ocr-2025
 ```
 
