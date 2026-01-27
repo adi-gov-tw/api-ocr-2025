@@ -105,7 +105,7 @@ Llama 3.2 Vision 為開源模型，但需申請授權後才能下載：
 pip install huggingface_hub
 
 # 登入（需輸入具有 read 權限的 Access Token）
-huggingface-cli login
+hf auth login --token "Your_Access_Token"
 ```
 
 > Access Token 可於 https://huggingface.co/settings/tokens 建立
@@ -151,7 +151,7 @@ python OCRAPI.py
 
 或使用 Uvicorn：
 ```bash
-uvicorn ocr:app --host 0.0.0.0 --port 9099
+uvicorn OCRAPI:app --host 0.0.0.0 --port 9099
 ```
 
 啟動後伺服器預設運行於：
